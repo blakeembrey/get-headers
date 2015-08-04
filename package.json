@@ -1,6 +1,6 @@
 {
   "name": "get-headers",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Retrieve all HTTP(s) headers as an object with original casing",
   "main": "lib/index.js",
   "files": [
