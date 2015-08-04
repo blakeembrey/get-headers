@@ -33,7 +33,7 @@ describe('get headers', () => {
           expect(headers['Cookie']).to.deep.equal(['foo', 'bar', 'baz'])
         } else {
           expect(headers['content-type']).to.equal('application/json')
-          expect(headers['cookie']).to.deep.equal(['foo', 'bar', 'baz'])
+          expect(headers['cookie']).to.deep.equal('foo, bar, baz')
         }
 
         server.close()
