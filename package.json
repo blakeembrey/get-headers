@@ -1,0 +1,47 @@
+{
+  "name": "get-headers",
+  "version": "0.0.0",
+  "description": "Retrieve all HTTP(s) headers as an object with original casing",
+  "main": "lib/index.js",
+  "files": [
+    "lib/",
+    "LICENSE"
+  ],
+  "scripts": {
+    "lint": "# TODO",
+    "build-ts": "ntsc",
+    "build": "rm -rf lib && npm run build-ts",
+    "test-spec": "mocha lib/**/*.spec.js -R spec --bail",
+    "test-cov": "istanbul cover -x *.spec.js node_modules/mocha/bin/_mocha -- lib/**/*.spec.js -R spec --bail",
+    "test": "npm run build && npm run lint && npm run test-cov",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blakeembrey/get-headers.git"
+  },
+  "keywords": [
+    "headers",
+    "raw",
+    "parse",
+    "http",
+    "object"
+  ],
+  "author": {
+    "name": "Blake Embrey",
+    "email": "hello@blakeembrey.com",
+    "url": "http://blakeembrey.me"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blakeembrey/get-headers/issues"
+  },
+  "homepage": "https://github.com/blakeembrey/get-headers",
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "istanbul": "^0.3.17",
+    "mocha": "^2.2.5",
+    "ntypescript": "^1.201507311101.1",
+    "pre-commit": "^1.1.1"
+  }
+}
