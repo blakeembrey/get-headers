@@ -8,7 +8,7 @@ export function parse (value: string): Headers {
 
   lines.forEach(function (header) {
     const indexOf = header.indexOf(':')
-    const name = header.substr(0, indexOf)
+    const name = header.substr(0, indexOf).trim()
     const value = header.substr(indexOf + 1).trim()
 
     if (!headers.hasOwnProperty(name)) {
@@ -24,32 +24,40 @@ export function parse (value: string): Headers {
 }
 
 export function http (response: any): Headers {
-  var headers: Headers = {}
+  if (response.rawHeaders) {
+    return array(response.rawHeaders)
+  }
 
-  if (!response.rawHeaders) {
-    Object.keys(response.headers).forEach(function (key) {
-      var value = response.headers[key]
+  const headers: Headers = {}
 
-      // Need to normalize `Set-Cookie` header under node 0.10 which is
-      // always set as an array.
-      if (Array.isArray(value) && value.length === 1) {
-        value = value[0]
-      }
+  Object.keys(response.headers).forEach(function (key) {
+    const value = response.headers[key]
 
+    // Need to normalize `Set-Cookie` header under node 0.10 which is
+    // always set as an array.
+    if (value.length === 1) {
+      headers[key] = value[0]
+    } else {
       headers[key] = value
-    })
-  } else {
-    for (var i = 0; i < response.rawHeaders.length; i = i + 2) {
-      var name = response.rawHeaders[i]
-      var value = response.rawHeaders[i + 1]
+    }
+  })
 
-      if (!headers.hasOwnProperty(name)) {
-        headers[name] = value
-      } else if (typeof headers[name] === 'string') {
-        headers[name] = [<string> headers[name], value]
-      } else {
-        (<string[]> headers[name]).push(value)
-      }
+  return headers
+}
+
+export function array (values: string[]) {
+  const headers: Headers = {}
+
+  for (let i = 0; i < values.length; i = i + 2) {
+    const name = values[i]
+    const value = values[i + 1]
+
+    if (!headers.hasOwnProperty(name)) {
+      headers[name] = value
+    } else if (typeof headers[name] === 'string') {
+      headers[name] = [<string> headers[name], value]
+    } else {
+      (<string[]> headers[name]).push(value)
     }
   }
 

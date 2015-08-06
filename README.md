@@ -17,6 +17,8 @@ npm install get-headers --save
 
 ### Parse
 
+Parse a headers string. Useful for `XMLHttpRequest` instances.
+
 ```js
 import { parse } from 'get-headers'
 
@@ -25,6 +27,8 @@ parse(xhr.getAllResponseHeaders()) //=> {}
 
 ### HTTP
 
+Parse headers from `http` responses. Works properly with node >= 0.12 (when the `rawHeaders` property was released) and falls back to normal headers on lower versions.
+
 ```js
 import { get } from 'http'
 import { http } from 'get-headers'
@@ -32,6 +36,16 @@ import { http } from 'get-headers'
 get('http://example.com', (res) => {
   http(res) //=> {}
 })
+```
+
+### Array
+
+Parse an array of headers (E.g. `rawHeaders`). Every odd must be the header name and evens the header value.
+
+```js
+import { array } from 'get-headers'
+
+array(['Content-Type', 'application/json']) //=> { 'Content-Type': 'application/json' }
 ```
 
 ## License
