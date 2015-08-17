@@ -34,7 +34,7 @@ import { get } from 'http'
 import { http } from 'get-headers'
 
 get('http://example.com', (res) => {
-  http(res) //=> {}
+  http(res) //=> { 'Accept-Ranges': 'bytes', 'Cache-Control': 'max-age=604800', 'Content-Type': 'text/html', Date: 'Mon, 17 Aug 2015 19:53:03 GMT', Etag: '"359670651"', Expires: 'Mon, 24 Aug 2015 19:53:03 GMT', 'Last-Modified': 'Fri, 09 Aug 2013 23:54:35 GMT', Server: 'ECS (rhv/818F)', 'X-Cache': 'HIT', 'x-ec-custom-error': '1', 'Content-Length': '1270', Connection: 'close' }
 })
 ```
 
