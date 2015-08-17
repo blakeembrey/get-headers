@@ -3,24 +3,19 @@ export interface Headers {
 }
 
 export function parse (value: string): Headers {
-  const headers: Headers = {}
+  const arr: string[] = []
   const lines = value.replace(/\r?\n$/, '').split(/\r?\n/)
 
-  lines.forEach(function (header) {
+  for (let i = 0; i < lines.length; i++) {
+    const header = lines[i]
     const indexOf = header.indexOf(':')
     const name = header.substr(0, indexOf).trim()
     const value = header.substr(indexOf + 1).trim()
 
-    if (!headers.hasOwnProperty(name)) {
-      headers[name] = value
-    } else if (typeof headers[name] === 'string') {
-      headers[name] = [<string> headers[name], value]
-    } else {
-      (<string[]> headers[name]).push(value)
-    }
-  })
+    arr.push(name, value)
+  }
 
-  return headers
+  return array(arr)
 }
 
 export function http (response: any): Headers {
