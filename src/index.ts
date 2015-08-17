@@ -2,6 +2,10 @@ export interface Headers {
   [headerName: string]: string | string[]
 }
 
+interface Case {
+  [key: string]: string
+}
+
 export function parse (value: string): Headers {
   const arr: string[] = []
   const lines = value.replace(/\r?\n$/, '').split(/\r?\n/)
@@ -41,19 +45,32 @@ export function http (response: any): Headers {
 }
 
 export function array (values: string[]) {
+  const casing: Case = {}
   const headers: Headers = {}
 
   for (let i = 0; i < values.length; i = i + 2) {
     const name = values[i]
+    const lower = name.toLowerCase()
+    const oldName = casing[lower]
     const value = values[i + 1]
 
-    if (!headers.hasOwnProperty(name)) {
+    if (!headers.hasOwnProperty(oldName)) {
       headers[name] = value
-    } else if (typeof headers[name] === 'string') {
-      headers[name] = [<string> headers[name], value]
     } else {
-      (<string[]> headers[name]).push(value)
+      // Move the header property when the name case changes.
+      if (name !== oldName) {
+        headers[name] = headers[oldName]
+        delete headers[oldName]
+      }
+
+      if (typeof headers[name] === 'string') {
+        headers[name] = [<string> headers[name], value]
+      } else {
+        (<string[]> headers[name]).push(value)
+      }
     }
+
+    casing[lower] = name
   }
 
   return headers

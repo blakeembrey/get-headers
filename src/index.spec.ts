@@ -17,6 +17,18 @@ describe('get headers', () => {
     })
   })
 
+  it('should use consistent header case', () => {
+    const headers = parse([
+      'cOOkIE: foo',
+      'cookie: bar',
+      'Cookie: baz'
+    ].join('\n'))
+
+    expect(headers).to.deep.equal({
+      'Cookie': ['foo', 'bar', 'baz']
+    })
+  })
+
   it('should parse http', (done) => {
     const server = createServer((req, res) => {
       res.setHeader('Content-Type', 'application/json')
