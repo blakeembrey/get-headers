@@ -3,18 +3,20 @@
   "version": "1.0.2",
   "description": "Retrieve all HTTP(s) headers as an object with original casing",
   "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "files": [
     "lib/",
+    "typings.json",
     "LICENSE"
   ],
   "scripts": {
     "lint": "# TODO",
-    "build-ts": "ntsc",
+    "build-ts": "tsc",
     "build": "rm -rf lib && npm run build-ts",
     "test-spec": "mocha lib/**/*.spec.js -R spec --bail",
     "test-cov": "istanbul cover -x *.spec.js node_modules/mocha/bin/_mocha -- lib/**/*.spec.js -R spec --bail",
     "test": "npm run build && npm run lint && npm run test-cov",
-    "prepublish": "npm run build"
+    "prepublish": "typings install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -41,7 +43,8 @@
     "chai": "^3.2.0",
     "istanbul": "^0.3.17",
     "mocha": "^2.2.5",
-    "ntypescript": "^1.201507311101.1",
-    "pre-commit": "^1.1.1"
+    "pre-commit": "^1.1.1",
+    "typescript": "^1.6.2",
+    "typings": "^0.2.2"
   }
 }
