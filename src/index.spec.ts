@@ -32,7 +32,7 @@ describe('get headers', () => {
   it('should parse http', (done) => {
     const server = createServer((req, res) => {
       res.setHeader('Content-Type', 'application/json')
-      res.setHeader('Cookie', <any> ['foo', 'bar', 'baz'])
+      res.setHeader('Cookie', ['foo', 'bar', 'baz'] as any)
       res.end('hello world')
     })
 
