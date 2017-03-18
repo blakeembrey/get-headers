@@ -64,9 +64,9 @@ export function array (values: string[]) {
       }
 
       if (typeof headers[name] === 'string') {
-        headers[name] = [<string> headers[name], value]
+        headers[name] = [headers[name] as string, value]
       } else {
-        (<string[]> headers[name]).push(value)
+        (headers[name] as string[]).push(value)
       }
     }
 

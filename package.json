@@ -9,7 +9,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "lint": "# tslint \"src/**/*.ts\"",
+    "lint": "tslint \"src/**/*.ts\"",
     "build-ts": "tsc",
     "build": "rm -rf lib && npm run build-ts",
     "test-spec": "mocha lib/**/*.spec.js -R spec --bail",
@@ -42,9 +42,9 @@
     "chai": "^3.2.0",
     "istanbul": "^0.4.4",
     "mocha": "^3.0.0",
-    "tslint": "^3.11.0",
-    "tslint-config-standard": "^1.2.2",
-    "typescript": "^2.0.3",
-    "typings": "^1.3.0"
+    "tslint": "^4.5.1",
+    "tslint-config-standard": "^4.0.0",
+    "typescript": "^2.2.1",
+    "typings": "^2.1.0"
   }
 }
